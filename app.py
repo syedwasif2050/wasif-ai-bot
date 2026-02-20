@@ -18,12 +18,11 @@ st.caption("🚀 Powered by Llama 3.3 & Groq")
 st.markdown("---")
 
 # 3. Secure API Key Management
-# Agar Streamlit Cloud par hai toh Secrets se uthayega, warna local key use karega
 if "GROQ_API_KEY" in st.secrets:
     api_key = st.secrets["GROQ_API_KEY"]
 else:
-    # Aapki purani key local testing ke liye yahan rehne di hai
-    api_key = "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"
+    st.error("API Key nahi mili! Please Streamlit Secrets check karein.")
+    st.stop()
 
 client = Groq(api_key=api_key)
 
@@ -59,3 +58,4 @@ if prompt := st.chat_input("Puchiye jo dil chahe (English or Roman Urdu)..."):
             st.session_state.messages.append({"role": "assistant", "content": response})
         except Exception as e:
             st.error(f"Opps! Kuch masla hua hai: {e}")
+
